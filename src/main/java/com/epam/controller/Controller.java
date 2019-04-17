@@ -1,13 +1,15 @@
 package com.epam.controller;
 
+import com.epam.util.StatelessBean;
+
+import javax.annotation.Resource;
+import javax.ejb.EJB;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +21,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Controller extends HttpServlet {
+
+    @Resource(mappedName = "java:jboss/datasources/OracleDS")
+    private DataSource dataSource;
+
+    @EJB
+    private StatelessBean statelessBean;
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -43,7 +51,7 @@ public class Controller extends HttpServlet {
 
 
             //Getting DataSource from JNDI context and using it.
-            DataSource dataSource = (DataSource) context.lookup("java:jboss/datasources/OracleDS");
+//            DataSource dataSource = (DataSource) context.lookup("java:jboss/datasources/OracleDS");
             System.out.println("datasource: " + dataSource);
             try {
                 Connection connection = dataSource.getConnection();
@@ -57,6 +65,13 @@ public class Controller extends HttpServlet {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+
+            // Getting stateless bean from JNDI context
+//            StatelessBean statelessBean= (StatelessBean) context.lookup("java:app/JavaEE/StatelessBean");
+//            statelessBean.info();
+
+            // Getting stateless bean from JNDI context by @EJB
+            statelessBean.info();
 
         } catch (NamingException e) {
             e.printStackTrace();

@@ -9,10 +9,18 @@
     <servlet-name>Controller</servlet-name>
     <servlet-class>com.epam.controller.Controller</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>ControllerForAsynchBean</servlet-name>
+    <servlet-class>com.epam.controller.ControllerForAsynchBean</servlet-class>
+  </servlet>
 
-    <servlet-mapping>
+  <servlet-mapping>
     <servlet-name>Controller</servlet-name>
     <url-pattern>/myController</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ControllerForAsynchBean</servlet-name>
+    <url-pattern>/myController2</url-pattern>
   </servlet-mapping>
 
 </web-app>
