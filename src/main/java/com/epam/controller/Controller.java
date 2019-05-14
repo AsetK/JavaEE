@@ -35,45 +35,47 @@ public class Controller extends HttpServlet {
 
         try {
             context = new InitialContext();
-
-            //adding and getting objects from JNDI context.
-            context.bind("counter", c);
-            NamingEnumeration namesList = context.list("");
-            while(namesList.hasMoreElements())
-            {
-                Object object = namesList.nextElement();
-                System.out.println(object);
-            }
-            c = (Long) context.lookup("counter");
-            System.out.println(c);
-            c++;
-            context.rebind("counter", c);
+//
+//            //adding and getting objects from JNDI context.
+//            context.bind("counter", c);
+//            NamingEnumeration namesList = context.list("");
+//            while(namesList.hasMoreElements())
+//            {
+//                Object object = namesList.nextElement();
+//                System.out.println(object);
+//            }
+//            c = (Long) context.lookup("counter");
+//            System.out.println(c);
+//            c++;
+//            context.rebind("counter", c);
 
 
             //Getting DataSource from JNDI context and using it.
 //            DataSource dataSource = (DataSource) context.lookup("java:jboss/datasources/OracleDS");
-            System.out.println("datasource: " + dataSource);
-            try {
-                Connection connection = dataSource.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM NEWS");
-                ResultSet reesult =  preparedStatement.executeQuery();
-                while (reesult.next())
-                {
-                    Long id = reesult.getLong(1);
-                    System.out.println(id);
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+//            System.out.println("datasource: " + dataSource);
+//            try {
+//                Connection connection = dataSource.getConnection();
+//                PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM NEWS");
+//                ResultSet reesult =  preparedStatement.executeQuery();
+//                while (reesult.next())
+//                {
+//                    Long id = reesult.getLong(1);
+//                    System.out.println(id);
+//                }
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
 
             // Getting stateless bean from JNDI context
 //            StatelessBean statelessBean= (StatelessBean) context.lookup("java:app/JavaEE/StatelessBean");
 //            statelessBean.info();
 
             // Getting stateless bean from JNDI context by @EJB
-            statelessBean.info();
+            statelessBean.info();   //if this servlet will be called by two clients at the same time, will be created the second stateless bean instance,
+                                    // because first would be busy. But if first bean instance is already finished first client request,
+                                    // the same bean instance will process second client request
 
-        } catch (NamingException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {

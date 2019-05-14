@@ -3,6 +3,7 @@ package com.epam.util;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.enterprise.context.RequestScoped;
 import java.util.LinkedList;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -13,15 +14,19 @@ public class StatelessBean {
     @EJB
     private StatelessBeanForAsynch statelessBeanForAsynch;
 
+    @EJB
+    private StatefulBean statefulBean;
+
 
     public void info()
     {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(10000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("Object info: " + this + "   Method info: " + System.currentTimeMillis());
+        System.out.println("Object info: " + this + "   Method info: " + System.currentTimeMillis()+ "=====" + statefulBean);
+        statefulBean.info();
     }
 
 
@@ -52,4 +57,6 @@ public class StatelessBean {
     {
         System.out.println("Post constructor: " + this);
     }
+
+
 }

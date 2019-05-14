@@ -13,6 +13,10 @@
     <servlet-name>ControllerForAsynchBean</servlet-name>
     <servlet-class>com.epam.controller.ControllerForAsynchBean</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>ControllerForStatefulBean</servlet-name>
+    <servlet-class>com.epam.controller.ControllerForStatefulBean</servlet-class>
+  </servlet>
 
   <servlet-mapping>
     <servlet-name>Controller</servlet-name>
@@ -21,6 +25,10 @@
   <servlet-mapping>
     <servlet-name>ControllerForAsynchBean</servlet-name>
     <url-pattern>/myController2</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ControllerForStatefulBean</servlet-name>
+    <url-pattern>myController3</url-pattern>
   </servlet-mapping>
 
 </web-app>
